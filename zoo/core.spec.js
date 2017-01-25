@@ -95,7 +95,7 @@ describe('Zoo', function() {
       assert.deepEqual(expected, result);
     });
 
-    xit('with specified options, returns names of animals', function () {
+    it('with specified options, returns names of animals', function () {
       var options  = { includeNames: true }
       var result   = zoo.animalMap(options);
       var expected = { NE: [ { lions: [ 'Zena', 'Maxwell', 'Faustino', 'Dee' ] },
@@ -109,11 +109,11 @@ describe('Zoo', function() {
                        SW: [ { frogs: [ 'Cathey', 'Annice' ] },
                              { snakes: [ 'Paulette', 'Bill' ] } ] };
 
-      assert.deepEqual(expected, result);
+      assert.deepEqual(result, expected);
     });
 
 
-    xit('with specified options, returns names of fe/male animals', function () {
+    it('with specified options, returns names of fe/male animals', function () {
       var options  = { includeNames: true, sex: 'female' }
       var result   = zoo.animalMap(options);
       var expected = { NE: [ { lions: [ 'Zena', 'Dee' ] },
@@ -126,7 +126,7 @@ describe('Zoo', function() {
                        SW: [ { frogs: [ 'Cathey', 'Annice' ] },
                              { snakes: [ 'Paulette' ] } ] };
 
-      assert.deepEqual(expected, result);
+      assert.deepEqual(result, expected);
     });
 
     xit('will only return gender specific information if includeNames is set', function () {
@@ -134,26 +134,26 @@ describe('Zoo', function() {
       var result   = zoo.animalMap(options)['NE'][0];
       var expected = 'lions';
 
-      assert.equal(expected, result);
+      assert.equal(result, expected);
     });
   });
 
   describe('#animalPopularity()', function () {
-    xit ('with no parameters, returns animals sorted into groups by popularity', function () {
+    it ('with no parameters, returns animals sorted into groups by popularity', function () {
       var result = zoo.animalPopularity();
       var expected = { '2': [ 'frogs' ],
                        '3': [ 'snakes' ],
                        '4': [ 'lions', 'penguins', 'otters', 'giraffes' ],
                        '5': [ 'tigers', 'bears', 'elephants' ] };
 
-      assert.deepEqual(expected, result);
+      assert.deepEqual(result, expected);
     });
 
-    xit ('with a single rating parameter, returns those animals that match the rating', function () {
+    it ('with a single rating parameter, returns those animals that match the rating', function () {
       var result = zoo.animalPopularity(3);
       var expected = [ 'snakes' ];
 
-      assert.deepEqual(expected, result);
+      assert.deepEqual(result, expected);
     });
   });
 
@@ -213,7 +213,7 @@ describe('Zoo', function() {
   });
 
   describe('#animalByName()', function () {
-    xit('with no parameters, returns an empty object', function () {
+    it('with no parameters, returns an empty object', function () {
       var result   = zoo.animalByName();
       var expected = {};
 
@@ -229,7 +229,7 @@ describe('Zoo', function() {
   });
 
   describe('#employeesByIds()', function () {
-    xit('with no parameters, returns an empty array', function () {
+    it('with no parameters, returns an empty array', function () {
       var result   = zoo.employeesByIds();
       var expected = [];
 
@@ -279,7 +279,7 @@ describe('Zoo', function() {
   });
 
   describe('#employeeByName()', function () {
-    xit('with no parameters, returns an empty object', function () {
+    it('with no parameters, returns an empty object', function () {
       var result   = zoo.employeeByName();
       var expected = {};
 

@@ -58,19 +58,100 @@ function animalCount (species) {
 // *********************************************************
 
 function animalMap (options) {
-  var map = {};
-  var areas = [];
-  
-  console.log(areas);
 
+  if(!options) {
 
+    var map = data.animals.reduce(animalsByRegion, {'NE':[], 'NW':[],'SE':[],'SW':[]});
+    return map;
+// GREAT EXAMPLE OF HOW TO: use reduce to push items to obj of arrays
+    function animalsByRegion(accumulator, currentValue, index, array) {
+
+      // Set variables to make function more readable
+      var loc = currentValue.location;
+      var Name = currentValue.name;
+
+      accumulator[loc].push(Name);
+      return accumulator;
+    }
+  }
+
+  else if (options.includeNames && !options.sex) {
+
+    var map = data.animals.reduce(animalsByRegion, {'NE':[], 'NW':[],'SE':[],'SW':[]});
+    return map;
+
+    function animalsByRegion(accumulator, currentValue, index, array) {
+
+      // Set variables to make function more readable
+      var loc = currentValue.location;
+      var Name = currentValue.name;
+      var animal = currentValue;
+
+      var animalNames = {};
+      accumulator[loc].push(animalNames);
+
+      animalNames[animal.name] = animal.residents.map(function (resident) {
+        // At this point you are inside of animals.residents, so you only need to interate over EACH resident!
+        return resident.name;
+      });
+      return accumulator;
+    }
+  }
+  else if (options.includeNames && options.sex) {
+
+    var map = data.animals.reduce(animalsByRegion, {'NE':[], 'NW':[],'SE':[],'SW':[]});
+    return map;
+
+    function animalsByRegion(accumulator, currentValue, index, array) {
+
+      // Set variables to make function more readable
+      var loc = currentValue.location;
+      var Name = currentValue.name;
+      var animal = currentValue;
+
+      var animalNames = {};
+      accumulator[loc].push(animalNames);
+
+      animalNames[animal.name] = animal.residents.filter(function (resident) {
+      // this will give us just the female animals, but we get the entire object back.
+        return resident.sex === options.sex
+      }).map(function(resident) {
+        return resident.name;
+      });
+
+      return accumulator;
+    }
+  }
+  else if (options.sex) {
+
+  }
 };
 
 // *********************************************************
 
 function animalPopularity (rating) {
-  // your code here
-};
+  var animals = data.animals;
+
+  if (!rating) {
+
+    var popularity = animals.reduce(getPopularity, {'2':[],'3':[],'4':[],'5':[]});
+    return popularity;
+
+    function getPopularity(accumulator, currentValue, index, array) {
+
+      accumulator[currentValue.popularity].push(currentValue.name);
+      return accumulator;
+    }
+  } else {
+
+    var popularity = animals.filter(function (animal) {
+      return animal.popularity == rating;
+    }).map(function (animal) {
+      return animal.name;
+    })
+    return popularity;
+  }
+}
 
 // *********************************************************
 
@@ -81,20 +162,37 @@ function animalsByIds (ids) {
 // *********************************************************
 
 function animalByName (animalName) {
-  // your code here
-};
+  if (!animalName) {
+    return {};
+  } else {
+
+    console.log(data.animals.find(findByName));
+
+    function findByName(element, index, array) {
+
+      for (var i = 0; i < element.residents.length; i++) {
+        if (element.residents[i]['name'] = animalName) {
+        return element.residents[i];
+        }
+      }
+
+    }
+  }
+}
 
 // *********************************************************
 
 function employeesByIds (ids) {
-  // your code here
-};
+  if (!ids) {
+    return [];
+  }};
 
 // *********************************************************
 
 function employeeByName (employeeName) {
-  // your code here
-};
+  if (!employeeName) {
+    return {};
+  }};
 
 // *********************************************************
 
